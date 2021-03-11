@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const pedidos = [
+            {
+                code: 1,
+                price: 4.0,
+                amount: 0
+            },
+            {
+                code: 2,
+                price: 4.5,
+                amount: 0
+            },
+            {
+                code: 3,
+                price: 5.0,
+                amount: 0
+            },
+            {
+                code: 4,
+                price: 2.0,
+                amount: 0
+            },
+            {
+                code: 5,
+                price: 1.5,
+                amount: 0
+            },
+        ]
+
+        function add(code) {
+            pedidos[code - 1].amount += 1
+            load()
+            calcTot()
+        }
+        function del(code) {
+            if (pedidos[code - 1].amount > 0) {
+                pedidos[code - 1].amount -= 1
+            }
+            load()
+            calcTot()
+        }
+
+        function calcTot() {
+            let tot = 0
+            pedidos.forEach(pedido => {
+                tot += pedido.price * pedido.amount
+            });
+            document.getElementById('tot').innerHTML = tot.toFixed(2)
+        }
+
+        function load() {
+            document.getElementById('amount-1').innerHTML = pedidos[0].amount
+            document.getElementById('amount-2').innerHTML = pedidos[1].amount
+            document.getElementById('amount-3').innerHTML = pedidos[2].amount
+            document.getElementById('amount-4').innerHTML = pedidos[3].amount
+            document.getElementById('amount-5').innerHTML = pedidos[4].amount
+        }
+
+        let show = false
+
+        function car() {
+            if (show) {
+                document.getElementById('carrinho').style.opacity = '0';
+                show = false
+            } else {
+                document.getElementById('carrinho').style.opacity = '1';
+                show = true
+            }
+        }
+    </script>
+    <title>Carrinho de Compras</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lojinha do Miguel</h1>
+        <table>
+            <tbody>
+                <tr>
+                    <th>CODE</th>
+                    <th>SPECIFICATION</th>
+                    <th>PRICE</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Cachorro quente</td>
+                    <td>R$ 4,00</td>
+                    <td><button class="button" onclick="del(1)">-</button><button class="button"
+                            onclick="add(1)">+</button></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>X-Salada</td>
+                    <td>R$ 4,50</td>
+                    <td><button class="button" onclick="del(2)">-</button><button class="button"
+                            onclick="add(2)">+</button></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>X-Bacon</td>
+                    <td>R$ 5,00</td>
+                    <td><button class="button" onclick="del(3)">-</button><button class="button"
+                            onclick="add(3)">+</button></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Torrada Simples</td>
+                    <td>R$ 2,00</td>
+                    <td><button class="button" onclick="del(4)">-</button><button class="button"
+                            onclick="add(4)">+</button></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Refrigerante</td>
+                    <td>R$ 1,50</td>
+                    <td><button class="button" onclick="del(5)">-</button><button class="button"
+                            onclick="add(5)">+</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2><button class="button" onclick="car()">Mostrar Carrinho</button></h2>
+
+        <div id="carrinho">
+            <h1>Carrinho de compras</h1>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>CODE</th>
+                        <th>SPECIFICATION</th>
+                        <th>PRICE</th>
+                        <th>AMOUNT</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Cachorro quente</td>
+                        <td>R$ 4,00</td>
+                        <td>
+                            <h4><span id="amount-1">0</span></h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>X-Salada</td>
+                        <td>R$ 4,50</td>
+                        <td>
+                            <h4><span id="amount-2">0</span></h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>X-Bacon</td>
+                        <td>R$ 5,00</td>
+                        <td>
+                            <h4><span id="amount-3">0</span></h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Torrada Simples</td>
+                        <td>R$ 2,00</td>
+                        <td>
+                            <h4><span id="amount-4">0</span></h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Refrigerante</td>
+                        <td>R$ 1,50</td>
+                        <td>
+                            <h4><span id="amount-5">0</span></h4>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Total = R$ <span id="tot"></span></h2>
+        </div>
+    </div>
+</body>
+
+</html>

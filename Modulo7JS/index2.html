@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+        integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
+    <title>Lojinha do Miguel 2</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="container">
+            <header>
+                <div class="title">
+                    <h2>Lanchonete</h2>
+                    <h1>PASSAPORTE</h1>
+                </div>
+                <div class="sub-header">
+                    <h2>Lanches</h2>
+                </div>
+                <img src="imgs/lanche.png" alt="Lanche logo">
+            </header>
+            <main id="home">
+                <div class="items">
+                    <div class="item">
+                        <div class="nome">
+                            <h3>X Salada</h3>
+                        </div>
+                        <div class="descricao">
+                            <p>Composta de: pão, alface, tomate, queijo, batata palha, cenoura</p>
+                        </div>
+                        <div class="preco"><span class="real">R$</span><span class="valor">9,99</span></div>
+                    </div>
+                    <div class="item">
+                        <div class="nome">
+                            <h3>X Frango</h3>
+                        </div>
+                        <div class="descricao">
+                            <p>Composta de: pão, alface, tomate, queijo, batata palha, frango</p>
+                        </div>
+                        <div class="preco"><span class="real">R$</span><span class="valor">9,99</span></div>
+                    </div>
+                    <div class="item">
+                        <div class="nome">
+                            <h3>X Bacon</h3>
+                        </div>
+                        <div class="descricao">
+                            <p>Composta de: pão, alface, tomate, queijo, batata palha, bacon</p>
+                        </div>
+                        <div class="preco"><span class="real">R$</span><span class="valor">9,99</span></div>
+                    </div>
+                    <div class="item">
+                        <div class="nome">
+                            <h3>X Calabresa</h3>
+                        </div>
+                        <div class="descricao">
+                            <p>Composta de: pão, alface, tomate, queijo, batata palha, calabresa</p>
+                        </div>
+                        <div class="preco"><span class="real">R$</span><span class="valor">9,99</span></div>
+                    </div>
+                </div>
+            </main>
+            <div class="compras">
+                <h1><button class="btn" onclick="car()">Mostrar Carrinho</button></h1>
+            </div>
+            <section id="carrinho">
+                <div class="items">
+                    <div class="item">
+                        <div class="nome">
+                            <h3>X Salada</h3>
+                        </div>
+                        <div class="amount"><span id="salada">0</span></div>
+                        <div class="buttons">
+                            <button class="btn" onclick="minus(1)">-</button>
+                            <button class="btn" onclick="add(1)">+</button>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="nome">
+                            <h3>X Frango</h3>
+                        </div>
+                        <div class="amount"><span id="frango">0</span></div>
+                        <div class="buttons">
+                            <button class="btn" onclick="minus(2)">-</button>
+                            <button class="btn" onclick="add(2)">+</button>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="nome">
+                            <h3>X Bacon</h3>
+                        </div>
+                        <div class="amount"><span id="bacon">0</span></div>
+                        <div class="buttons">
+                            <button class="btn" onclick="minus(3)">-</button>
+                            <button class="btn" onclick="add(3)">+</button>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="nome">
+                            <h3>X Calabresa</h3>
+                        </div>
+                        <div class="amount"><span id="calabresa">0</span></div>
+                        <div class="buttons">
+                            <button class="btn" onclick="minus(4)">-</button>
+                            <button class="btn" onclick="add(4)">+</button>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="nome">
+                            <h3>Total: <span id="tot">0</span></h3>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="img">
+                            <img src="imgs/cartao.png" alt="Bandeiras de cartão aceitas" width="500px">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script>
+        const pedidos = [
+            {
+                code: 1,
+                price: 9.99,
+                amount: 0
+            },
+            {
+                code: 2,
+                price: 9.99,
+                amount: 0
+            },
+            {
+                code: 3,
+                price: 9.99,
+                amount: 0
+            },
+            {
+                code: 4,
+                price: 9.99,
+                amount: 0
+            },
+        ]
+
+        function add(code) {
+            pedidos[code - 1].amount += 1
+            load()
+            calcTot()
+        }
+        function minus(code) {
+            if (pedidos[code - 1].amount > 0) {
+                pedidos[code - 1].amount -= 1
+            }
+            load()
+            calcTot()
+        }
+
+        function calcTot() {
+            let tot = 0
+            pedidos.forEach(pedido => {
+                tot += pedido.price * pedido.amount
+            });
+            document.getElementById('tot').innerHTML = tot.toFixed(2)
+        }
+
+        function load() {
+            document.getElementById('salada').innerHTML = pedidos[0].amount
+            document.getElementById('frango').innerHTML = pedidos[1].amount
+            document.getElementById('bacon').innerHTML = pedidos[2].amount
+            document.getElementById('calabresa').innerHTML = pedidos[3].amount
+        }
+
+        let show = false
+
+        function car() {
+            if (show) {
+                document.getElementById('carrinho').style.opacity = '0';
+                show = false
+            } else {
+                document.getElementById('carrinho').style.opacity = '1';
+                show = true
+            }
+        }
+    </script>
+</body>
+
+</html>
